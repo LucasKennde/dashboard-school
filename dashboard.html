@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Controle</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.0.0/dist/full.css" rel="stylesheet">
+</head>
+<body>
+  <div class="flex justify-between p-4">
+    <h1 class="text-xl font-bold">Painel de Controle</h1>
+    <button id="theme-toggle" class="btn btn-sm">Alternar Tema</button>
+  </div>
+
+  <div class="container mx-auto mt-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div id="stat-1" class="stat bg-base-200 p-4">
+        <div class="stat-title">Estatística 1</div>
+        <div class="stat-value" id="stat-1-value">0</div>
+      </div>
+      <div id="stat-2" class="stat bg-base-200 p-4">
+        <div class="stat-title">Estatística 2</div>
+        <div class="stat-value" id="stat-2-value">0</div>
+      </div>
+      <div id="stat-3" class="stat bg-base-200 p-4">
+        <div class="stat-title">Estatística 3</div>
+        <div class="stat-value" id="stat-3-value">0</div>
+      </div>
+    </div>
+    <div class="mt-6">
+      <button id="load-data" class="btn btn-primary">Carregar Dados</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/supabase-js@1.35.0/dist/supabase.min.js"></script>
+  <script src="dashboard.js" defer></script>
+</body>
+</html>
