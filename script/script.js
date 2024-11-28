@@ -4,9 +4,9 @@ import { toastSucess, toastError } from './toast.js';
 const sessionUser = document.getElementById("sessionUser")
 
 document.addEventListener('DOMContentLoaded', () => {
-  const token = decodeJWT(localStorage.getItem("token"))
+  const token = localStorage.getItem("token")
   if (!token) window.location.href = '../pages/login.html'
-  sessionUser.innerHTML = `Seja bem vindo, ${token.name}`
+  sessionUser.innerHTML = `Seja bem vindo, ${decodeJWT(token).name}`
 
 })
 
