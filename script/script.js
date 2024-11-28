@@ -32,6 +32,7 @@ btnTurma.addEventListener('click', () => {
 })
 
 function decodeJWT(token) {
+  if (!token) return
   const base64Payload = token.split('.')[1];
   const decodedPayload = atob(base64Payload);
   return JSON.parse(decodedPayload);

@@ -7,7 +7,7 @@ formSignup.addEventListener('submit', async (event) => {
 
     try {
         const user = { name, email, password }
-        const response = await fetch('http://localhost:3000/api/user', {
+        const response = await fetch('https://firstapi-j64y.onrender.com/api/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
