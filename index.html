@@ -1,117 +1,82 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel Administrativo</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.0.0/dist/full.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/supabase-js@1.35.0/dist/supabase.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-  <script src="script.js" defer></script>
-  <style>
-    [data-theme='light'] {
-      --bg-color: #ffffff;
-      --text-color: #000000;
-      --btn-bg: #333333;
-      --btn-text: #ffffff;
-      --card-bg: #f4f4f4;
-    }
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css"
+      rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="style.css">
+  </head>
 
-    [data-theme='dark'] {
-      --bg-color: #111111;
-      --text-color: #ffffff;
-      --btn-bg: #333333;
-      --btn-text: #ffffff;
-      --card-bg: #1f1e1e;
-    }
+  <body class="min-h-screen ">
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-    }
+    <div class="flex justify-between p-4">
+      <h1 class="text-xl font-bold">Painel Administrativo</h1>
+      <h2 id="sessionUser"></h2>
+      <button id="theme-toggle" class="btn btn-sm">Alternar Tema</button>
+    </div>
 
-    .btn {
-      background-color: var(--btn-bg);
-      color: var(--btn-text);
-    }
+    <div class="container mx-auto mt-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="card p-4 rounded-lg shadow-lg">
+          <h2 class="text-lg font-bold mb-2">Turmas</h2>
+          <button id="btn-turma"
+            class="btn btn-primary mb-2">Adicionar Turma</button>
 
-    .card {
-      background-color: var(--card-bg);
-    }
+        </div>
 
-    body, .btn, .card {
-      transition: background-color 0.3s, color 0.3s;
-    }
-  </style>
-</head>
+        <div class="card p-4 rounded-lg shadow-lg">
+          <h2 class="text-lg font-bold mb-2">Alunos</h2>
+          <button class="btn btn-primary mb-2">Adicionar Aluno</button>
+          <ul id="student-list" class="space-y-2">
+          </ul>
+        </div>
 
-<body class="min-h-screen">
-  <div class="flex justify-between p-4">
-    <h1 class="text-xl font-bold">Painel Administrativo</h1>
-    <button id="theme-toggle" class="btn btn-sm">Alternar Tema</button>
-  </div>
+        <div class="card p-4 rounded-lg shadow-lg">
+          <h2 class="text-lg font-bold mb-2">Monitores</h2>
+          <button class="btn btn-primary mb-2">Adicionar Monitor</button>
+          <ul id="monitor-list" class="space-y-2">
+          </ul>
+        </div>
 
-  <div class="container mx-auto mt-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="card p-4 rounded-lg shadow-lg">
-        <h2 class="text-lg font-bold mb-2">Turmas</h2>
-        <button class="btn btn-primary mb-2">Adicionar Turma</button>
-        <ul id="class-list" class="space-y-2">
-        </ul>
+        <div class="card p-4 rounded-lg shadow-lg">
+          <h2 class="text-lg font-bold mb-2">Relatórios</h2>
+          <button id="generate-report" class="btn btn-primary mb-2">Gerar
+            Relatório</button>
+          <p class="text-sm text-gray-400">Relatórios podem ser exportados em
+            formato Excel.</p>
+        </div>
       </div>
 
-      <div class="card p-4 rounded-lg shadow-lg">
-        <h2 class="text-lg font-bold mb-2">Alunos</h2>
-        <button class="btn btn-primary mb-2">Adicionar Aluno</button>
-        <ul id="student-list" class="space-y-2">
-        </ul>
-      </div>
+      <dialog id="meumodal" class="modal w-full">
+        <div class="modal-box">
+          <form method="dialog">
+            <button
+              class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          </form>
+          <h3 class="text-lg font-bold text-white">Cadastro de turma</h3>
+          <form id="formTurma">
+            <label for="nomeTurma" class="label">Nome da Turma:</label>
+            <input type="text" id="nomeTurma" name="nomeTurma" class="
+            input input-bordered w-full mb-2">
+            <button id="btnTurma" class="
+            btn btn-primary w-full mb-2">Adicionar Turma</button>
+          </form>
+        </div>
+      </dialog>
+      <div id="toast" class="toast toast-top toast-end opatityToast">
 
-      <div class="card p-4 rounded-lg shadow-lg">
-        <h2 class="text-lg font-bold mb-2">Monitores</h2>
-        <button class="btn btn-primary mb-2">Adicionar Monitor</button>
-        <ul id="monitor-list" class="space-y-2">
-        </ul>
-      </div>
-
-      <div class="card p-4 rounded-lg shadow-lg">
-        <h2 class="text-lg font-bold mb-2">Relatórios</h2>
-        <button id="generate-report" class="btn btn-primary mb-2">Gerar Relatório</button>
-        <p class="text-sm text-gray-400">Relatórios podem ser exportados em formato Excel.</p>
       </div>
     </div>
-  </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const themeToggle = document.getElementById('theme-toggle');
-      const rootElement = document.documentElement;
-
-      themeToggle.addEventListener('click', () => {
-        const currentTheme = rootElement.getAttribute('data-theme');
-        if (currentTheme === 'dark') {
-          rootElement.setAttribute('data-theme', 'light');
-        } else {
-          rootElement.setAttribute('data-theme', 'dark');
-        }
-      });
-
-      document.getElementById('generate-report').addEventListener('click', () => {
-        const data = [
-          ["Turma", "Monitor", "Alunos", "Presença"]
-        ];
-        
-        const worksheet = XLSX.utils.aoa_to_sheet(data);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Relatório");
-
-        XLSX.writeFile(workbook, 'relatorio.xlsx');
-      });
-    });
-  </script>
-</body>
+    <script src="./script/theme.js"></script>
+    <script type="module" src="./script/script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </body>
 
 </html>

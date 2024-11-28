@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Painel Administrativo</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="../style.css"></style>
+    </head>
+
+    <body class="min-h-screen h-full">
+        <div class="flex justify-between p-4">
+            <h1 class="text-xl font-bold">Painel Administrativo</h1>
+            <button id="theme-toggle" class="btn btn-sm">Alternar Tema</button>
+        </div>
+
+        <div
+            class="container flex items-center justify-center p-2 mx-auto mt-6">
+            <form id="formSignup"
+                class="card p-4 rounded-lg shadow-lg w-80 flex flex-col gap-2 ">
+                <h1 class="text-center font-bold uppercase ">Cadastre-se</h1>
+                <label for="name" class="flex flex-col gap-1 w-full">
+                    <span>Name:</span>
+                    <input type="text" id="name" name="name"
+                        class="block w-full px-2 py-1 rounded text-black">
+                </label>
+                <label for="email" class="flex flex-col gap-1 w-full">
+                    <span>E-mail:</span>
+                    <input type="text" id="email" name="email"
+                        class="block w-full px-2 py-1 rounded text-black">
+                </label>
+                <label for="password" class="flex flex-col gap-1 w-full">
+                    <span>Password:</span>
+                    <input type="password" id="password" name="password"
+                        class="block w-full px-2 py-1  rounded text-black">
+                </label>
+                <button class="btn btn-sm">Cadastre-se</button>
+
+            </form>
+        </div>
+
+        <script src="../script/theme.js"></script>
+        <script src="../script/signup.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </body>
+
+</html>
