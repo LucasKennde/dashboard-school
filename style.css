@@ -24,6 +24,10 @@ body {
     color: var(--btn-text);
 }
 
+input {
+    color: var(--btn-text);
+}
+
 .card {
     background-color: var(--card-bg);
 }
