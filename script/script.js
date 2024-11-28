@@ -5,8 +5,8 @@ const sessionUser = document.getElementById("sessionUser")
 
 document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem("token")
-  const user = decodeJWT(token)
   if (!token) window.location.href = '../pages/login.html'
+  const user = decodeJWT(token)
   sessionUser.innerHTML = `Seja bem vindo, ${user.name}`
 
 })
